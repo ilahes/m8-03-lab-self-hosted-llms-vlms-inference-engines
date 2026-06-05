@@ -18,8 +18,8 @@ Same prompt for both. Get RAM from your OS activity monitor / `top`.
 
 ## Task 3 — VLM: local vs hosted
 
-Image used: `TODO.png` (committed in this repo). Task performed: TODO
-(caption / VQA / OCR).
+Image used: `sample_chart.png` (provided) or your own — committed in this
+repo. Task performed: TODO (caption / VQA / OCR).
 
 | System | Answer (short) | Speed | Cost |
 |--------|----------------|-------|------|

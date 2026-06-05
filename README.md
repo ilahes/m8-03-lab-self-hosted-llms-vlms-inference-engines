@@ -57,7 +57,7 @@ The point: prove to yourself that calling an LLM is just an HTTP request to an i
 
 ### Task 3 — VLM: local vs hosted
 
-1. Pick an image (include it in the repo — a receipt, a chart, a photo with countable objects works well).
+1. Pick an image (include it in the repo — a receipt, a chart, a photo with countable objects works well). A ready-to-use **`sample_chart.png`** is included in this repo if you'd rather not find your own — it has text to read (OCR), countable bars (VQA), and is describable (caption).
 2. Ask a **local VLM** (`moondream` via Ollama) to do one vision task: caption it, answer a question about it, or read text from it.
 3. Ask **Gemini's multimodal** model (free tier) the *same* question about the *same* image. If you can't use Gemini, compare two local VLMs instead and note it.
 4. In `self_hosting_report.md`, compare the two answers on **quality, speed, and cost** in a short table + 2–3 sentences.

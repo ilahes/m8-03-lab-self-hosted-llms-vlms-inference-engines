@@ -1,43 +1,34 @@
-"""
-Task 2 — Hit the local Ollama endpoint from Python.
-
-Ollama exposes an OpenAI-compatible HTTP API on http://localhost:11434.
-That means the SAME client code you used for a hosted API works here —
-you only change the base URL (and the API key is a dummy value locally).
-
-Run Ollama first (it starts a server automatically when you `ollama run`
-or `ollama serve`), then:
-
-    pip install -r requirements.txt
-    python local_client.py
-"""
-
+import time
 from openai import OpenAI
 
-# Point the OpenAI client at your LOCAL Ollama server instead of the cloud.
-# This is the whole insight of the lab: "calling an LLM" is just an HTTP
-# request to an inference server — wherever that server happens to run.
+# Local model served by Ollama
+MODEL = "llama3.2:3b"
+
+# Ollama exposes an OpenAI-compatible HTTP API on localhost.
+# This means the client code has the same general shape as a hosted LLM API call:
+# we create a client, choose a model, send messages, and receive a generated response.
+# The difference is that the base_url points to my own machine instead of a cloud provider.
 client = OpenAI(
     base_url="http://localhost:11434/v1",
-    api_key="ollama",  # required by the client, but ignored by Ollama
+    api_key="ollama"  # dummy value; Ollama does not require a real API key
 )
 
-MODEL = "llama3.2:3b"  # TODO: change to a model you pulled with `ollama pull`
+prompt = "Explain what an inference engine does in exactly two sentences."
 
+start = time.time()
 
-def main() -> None:
-    response = client.chat.completions.create(
-        model=MODEL,
-        messages=[
-            {"role": "system", "content": "You are a concise assistant."},
-            {"role": "user", "content": "In one sentence, what is an inference engine?"},
-        ],
-    )
-    print(response.choices[0].message.content)
+response = client.chat.completions.create(
+    model=MODEL,
+    messages=[
+        {"role": "system", "content": "You are a concise assistant."},
+        {"role": "user", "content": prompt}
+    ]
+)
 
-    # TODO (reflection): in a comment or a print, explain in your own words
-    # why this is "the same shape" as yesterday's hosted Gemini call.
+elapsed = time.time() - start
 
-
-if __name__ == "__main__":
-    main()
+print("Model:", MODEL)
+print("Prompt:", prompt)
+print("\nResponse:")
+print(response.choices[0].message.content)
+print(f"\nElapsed time: {elapsed:.2f} seconds")
